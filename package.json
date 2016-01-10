@@ -3,6 +3,16 @@
   "description": "A REST API to play shoutcast/icecast radio stations via mpg123",
   "version": "0.0.1",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pwlin/mpg123-radio-server-api.git"
+  },
+  "author": "pwlin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pwlin/mpg123-radio-server-api/issues"
+  },
+  "homepage": "https://github.com/pwlin/mpg123-radio-server-api",
   "scripts": {
     "start": "node ./app.js"
   },
