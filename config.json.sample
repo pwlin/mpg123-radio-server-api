@@ -1,0 +1,18 @@
+{
+    "NODE_ENV": "development",
+    "DEBUG": "*,-express:*",
+    "CORS": {
+        "ENABLED": false,
+        "ALLOW_ORIGIN": "*"
+    },
+    "SERVER": {
+        "HOST": "127.0.0.1",
+        "PORT": "3000"
+    },
+    "LOGS": {
+        "MAIN_PATH": "/tmp"
+    },
+    "SOUNDCARD": {
+        "MAIN_CONTROLLER": "Master"
+    }
+}
