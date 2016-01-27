@@ -39,7 +39,7 @@ function play(stationUrl) {
         utils.shellExecSync('killall mpg123');
     } catch (e) {}
     try {
-        utils.shellExecSync('mpg123 -@ "' + stationUrl + '" > ' + logFile() + ' 2>&1 &');
+        utils.shellExecSync('mpg123 --loop -1 -@ "' + stationUrl + '" > ' + logFile() + ' 2>&1 &');
     } catch (e) {}
 }
 
