@@ -12,7 +12,7 @@ mpg123-radio-server-api
 
 Play a station:
 
-    /play/:statuinUrl
+    /play/:stationUrl
     
 Stop playing:
 
