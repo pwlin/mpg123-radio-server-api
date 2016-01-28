@@ -81,46 +81,58 @@ function currentSong() {
             //debug(contents);
 
             data.stationUrl = lastStationUrl;
-            stationName = contents.match(/ICY-NAME\:(.*)/);
-            if (stationName instanceof Array && stationName.length > 0) {
-                data.stationName = stationName[1].trim();
-            } else {
-                data.stationName = '';
-            }
-
-            audioProperties = contents.match(/MPEG (.*) layer(.*)/g);
-            if (audioProperties instanceof Array && audioProperties.length > 0) {
-                audioProperties = audioProperties[0].split(',');
-                data.audioProperties = {
-                    format: audioProperties[0].trim(),
-                    bitrate: audioProperties[1].trim(),
-                    sampleRate: audioProperties[2].trim()
-                };
-            } else {
+            if (contents.match(/HTTP request failed/)) {
+                data.stationName = 'HTTP request failed. Invalid Station Or Try Again';
                 data.audioProperties = {
                     format: '',
                     bitrate: '',
                     sampleRate: ''
                 };
-            }
-
-            trackName = contents.match(/ICY-META\: StreamTitle='(.*)';/g);
-            if (trackName instanceof Array && trackName.length > 0) {
-                trackName = trackName[trackName.length - 1];
-                trackName = trackName.replace(/^ICY-META\: StreamTitle='|';$|';StreamUrl='(.*)/g, '').trim();
-                data.trackName = trackName;
-                trackName = trackName.split(' - ');
-                if (trackName.length > 0) {
-                    data.artistName = trackName[0].trim();
-                    trackName.shift();
-                    data.trackName = trackName.join(' - ');
-                } else {
-                    data.artistName = '';
-                }
-            } else {
                 data.trackName = '';
                 data.artistName = '';
+            } else {
+                stationName = contents.match(/ICY-NAME\:(.*)/);
+                if (stationName instanceof Array && stationName.length > 0) {
+                    data.stationName = stationName[1].trim();
+                } else {
+                    data.stationName = '';
+                }
+
+                audioProperties = contents.match(/MPEG (.*) layer(.*)/g);
+                if (audioProperties instanceof Array && audioProperties.length > 0) {
+                    audioProperties = audioProperties[0].split(',');
+                    data.audioProperties = {
+                        format: audioProperties[0].trim(),
+                        bitrate: audioProperties[1].trim(),
+                        sampleRate: audioProperties[2].trim()
+                    };
+                } else {
+                    data.audioProperties = {
+                        format: '',
+                        bitrate: '',
+                        sampleRate: ''
+                    };
+                }
+
+                trackName = contents.match(/ICY-META\: StreamTitle='(.*)';/g);
+                if (trackName instanceof Array && trackName.length > 0) {
+                    trackName = trackName[trackName.length - 1];
+                    trackName = trackName.replace(/^ICY-META\: StreamTitle='|';$|';StreamUrl='(.*)/g, '').trim();
+                    data.trackName = trackName;
+                    trackName = trackName.split(' - ');
+                    if (trackName.length > 0) {
+                        data.artistName = trackName[0].trim();
+                        trackName.shift();
+                        data.trackName = trackName.join(' - ');
+                    } else {
+                        data.artistName = '';
+                    }
+                } else {
+                    data.trackName = '';
+                    data.artistName = '';
+                }
             }
+
             currentSongCachedObject = data;
             currentSongCachedLogFileStat = {
                 mtime: tmpCurrentSongLogFileStat.mtime
